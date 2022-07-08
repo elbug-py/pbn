@@ -247,14 +247,23 @@ int main()
             (heroPtr + i)->connections__group_affiliation = (char *)malloc((strlen(token) + 2) * sizeof(char));
             strcpy((heroPtr + i)->connections__group_affiliation, token);
         }
-/*
+
         if (token != NULL)
         {
             token = strtok(NULL, ";");
-            (heroPtr + i)->connections__relatives = (char *)malloc((strlen(token) + 2) * sizeof(char));
-            strcpy((heroPtr + i)->connections__relatives, token);
+            if (token != NULL)
+            {
+                (heroPtr + i)->connections__relatives = (char *)malloc((strlen(token) + 2) * sizeof(char));
+                strcpy((heroPtr + i)->connections__relatives, token);
+            }
+            else{
+                (heroPtr + i)->connections__relatives = (char *)malloc((10) * sizeof(char));
+                strcpy((heroPtr + i)->connections__relatives, "N/A");
+            }
+            
+            
         }
-        */
+        
         i++;
 
         if (i > len_file) break;
@@ -303,10 +312,14 @@ int main()
         free(heroPtr[i].work__occupation);
         free(heroPtr[i].work__base);
         free(heroPtr[i].connections__group_affiliation);
-        /*free(heroPtr[i].connections__relatives);*/
+        free(heroPtr[i].connections__relatives);
+        heroPtr[i].connections__relatives=NULL;
+        
         
     }
     
+    muestrastruct(&heroPtr[730]);
+
     free(heroPtr);
     free(str);
     fclose(heroes);
